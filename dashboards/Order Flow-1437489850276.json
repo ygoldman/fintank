@@ -1,0 +1,893 @@
+{
+  "id": 1,
+  "title": "Order Flow",
+  "originalTitle": "Order Flow",
+  "tags": [
+    "orders",
+    "prices"
+  ],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": 6,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "thresholdLine": false
+          },
+          "height": "250",
+          "id": 1,
+          "interval": "1m",
+          "leftYAxisLabel": "price",
+          "legend": {
+            "alignAsTable": false,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "IVE",
+              "column": "bid",
+              "condition": "symbol=\"VTI\"",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "ask"
+                },
+                {
+                  "func": "mean",
+                  "name": "bid"
+                }
+              ],
+              "fill": "null",
+              "function": "mean",
+              "groupByTags": [],
+              "hide": false,
+              "interval": "1s",
+              "measurement": "bid_ask",
+              "query": "SELECT mean(ask), mean(bid) FROM \"bid_ask\" WHERE \"symbol\" = 'IVE' AND $timeFilter GROUP BY time($interval) fill(null) ORDER BY asc",
+              "series": "bid_ask",
+              "tags": [
+                {
+                  "key": "symbol",
+                  "value": "IVE"
+                }
+              ],
+              "rawQuery": true
+            },
+            {
+              "alias": "IWS",
+              "column": "bid",
+              "condition": "symbol=\"VTI\"",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "ask"
+                },
+                {
+                  "func": "mean",
+                  "name": "bid"
+                }
+              ],
+              "fill": "null",
+              "function": "mean",
+              "groupByTags": [],
+              "interval": "1s",
+              "measurement": "bid_ask",
+              "query": "SELECT mean(ask), mean(bid) FROM \"bid_ask\" WHERE \"symbol\" = 'IWS' AND $timeFilter GROUP BY time($interval) fill(null) ORDER BY asc",
+              "series": "bid_ask",
+              "tags": [
+                {
+                  "key": "symbol",
+                  "value": "IWS"
+                }
+              ]
+            },
+            {
+              "alias": "VTI",
+              "column": "bid",
+              "condition": "symbol=\"VTI\"",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "ask"
+                },
+                {
+                  "func": "mean",
+                  "name": "bid"
+                }
+              ],
+              "fill": "null",
+              "function": "mean",
+              "groupByTags": [],
+              "interval": "1s",
+              "measurement": "bid_ask",
+              "query": "SELECT mean(ask), mean(bid) FROM \"bid_ask\" WHERE \"symbol\" = 'VTI' AND $timeFilter GROUP BY time($interval) fill(null) ORDER BY asc",
+              "rawQuery": false,
+              "series": "bid_ask",
+              "tags": [
+                {
+                  "key": "symbol",
+                  "value": "VTI"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "avg(BID, ASK) in 1min groups",
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 3,
+          "interval": "",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "$",
+          "prefixFontSize": "50%",
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "avg bid",
+              "fields": [
+                {
+                  "func": "sum",
+                  "name": "amount"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "portfolio_orders",
+              "query": "SELECT sum(amount) FROM \"portfolio_orders\" WHERE \"order_type\" = 'BUY' AND $timeFilter GROUP BY time($interval) ORDER BY asc",
+              "tags": [
+                {
+                  "key": "order_type",
+                  "value": "BUY"
+                }
+              ]
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Total Deposits",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "0",
+              "value": "null"
+            }
+          ],
+          "valueName": "total"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 5,
+          "interval": "",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "$",
+          "prefixFontSize": "50%",
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "",
+              "fields": [
+                {
+                  "func": "sum",
+                  "name": "amount"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "portfolio_orders",
+              "query": "SELECT sum(amount) FROM \"portfolio_orders\" WHERE \"order_type\" = 'SELL' AND $timeFilter GROUP BY time($interval) ORDER BY asc",
+              "rawQuery": false,
+              "tags": [
+                {
+                  "key": "order_type",
+                  "value": "SELL"
+                }
+              ]
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Total Withdrawals",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "0",
+              "value": "null"
+            }
+          ],
+          "valueName": "total"
+        }
+      ],
+      "title": "Row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "height": "250",
+          "id": 2,
+          "interval": "",
+          "legend": {
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": true,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "buys",
+              "fields": [
+                {
+                  "func": "distinct",
+                  "name": "amount"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "portfolio_orders",
+              "query": "SELECT amount FROM \"portfolio_orders\" WHERE \"order_type\" = 'BUY'",
+              "rawQuery": true,
+              "tags": [
+                {
+                  "key": "order_type",
+                  "value": "BUY"
+                }
+              ]
+            },
+            {
+              "alias": "sells",
+              "fields": [
+                {
+                  "func": "distinct",
+                  "name": "amount"
+                }
+              ],
+              "groupByTags": [
+                "order_type"
+              ],
+              "measurement": "portfolio_orders",
+              "query": "SELECT amount FROM \"portfolio_orders\" WHERE \"order_type\" = 'SELL'",
+              "rawQuery": true,
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Portfolio Orders",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 4,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 7,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "sum",
+                  "name": "delta_shares_position"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "fills",
+              "query": "SELECT sum(delta_shares_position) FROM \"fills\" WHERE \"symbol\" = 'VTI' AND $timeFilter GROUP BY time($interval) ORDER BY asc",
+              "tags": [
+                {
+                  "key": "symbol",
+                  "value": "VTI"
+                }
+              ]
+            }
+          ],
+          "thresholds": "",
+          "title": "Total Shares of VTI",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "total"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 4,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 8,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "sum",
+                  "name": "delta_shares_position"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "fills",
+              "query": "SELECT sum(delta_shares_position) FROM \"fills\" WHERE \"symbol\" = 'IVE' AND $timeFilter GROUP BY time($interval) ORDER BY asc",
+              "tags": [
+                {
+                  "key": "symbol",
+                  "value": "IVE"
+                }
+              ]
+            }
+          ],
+          "thresholds": "",
+          "title": "Total Shares of IVE",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "total"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 4,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 9,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "sum",
+                  "name": "delta_shares_position"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "fills",
+              "query": "SELECT sum(delta_shares_position) FROM \"fills\" WHERE \"symbol\" = 'IWS' AND $timeFilter GROUP BY time($interval) ORDER BY asc",
+              "tags": [
+                {
+                  "key": "symbol",
+                  "value": "IWS"
+                }
+              ]
+            }
+          ],
+          "thresholds": "",
+          "title": "Total Shares of IWS",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "total"
+        }
+      ],
+      "title": "New row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {
+            "IVE.count": "#E0F9D7",
+            "IWS.count": "#EAB839",
+            "VTI.count": "#6ED0E0"
+          },
+          "bars": true,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "height": "250",
+          "id": 4,
+          "interval": "1m",
+          "leftYAxisLabel": "order volume",
+          "legend": {
+            "alignAsTable": false,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": true,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "rightYAxisLabel": "# orders",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "IVE.total",
+              "fields": [
+                {
+                  "func": "sum",
+                  "name": "amount"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "portfolio_component_orders",
+              "query": "SELECT sum(amount) FROM \"portfolio_component_orders\" WHERE \"symbol\" = 'IVE' AND $timeFilter GROUP BY time($interval) ORDER BY asc",
+              "rawQuery": false,
+              "tags": [
+                {
+                  "key": "symbol",
+                  "value": "IVE"
+                }
+              ]
+            },
+            {
+              "alias": "IWS.toal",
+              "fields": [
+                {
+                  "func": "sum",
+                  "name": "amount"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "portfolio_component_orders",
+              "query": "SELECT sum(amount) FROM \"portfolio_component_orders\" WHERE \"symbol\" = 'IWS' AND $timeFilter GROUP BY time($interval) ORDER BY asc",
+              "rawQuery": false,
+              "tags": [
+                {
+                  "key": "symbol",
+                  "value": "IWS"
+                }
+              ]
+            },
+            {
+              "alias": "VTI.total",
+              "fields": [
+                {
+                  "func": "sum",
+                  "name": "amount"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "portfolio_component_orders",
+              "query": "SELECT sum(amount) FROM \"portfolio_component_orders\" WHERE \"symbol\" = 'VTI' AND $timeFilter GROUP BY time($interval) ORDER BY asc",
+              "rawQuery": false,
+              "tags": [
+                {
+                  "key": "symbol",
+                  "value": "VTI"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Component Orders",
+          "tooltip": {
+            "shared": false,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {
+            "VTI.fills": "#629E51"
+          },
+          "bars": true,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 6,
+          "interval": "5m",
+          "legend": {
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": true,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "VTI.fills",
+              "fields": [
+                {
+                  "func": "sum",
+                  "name": "filled_amount"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "fills",
+              "query": "SELECT sum(filled_amount) FROM \"fills\" WHERE \"symbol\" = 'VTI' AND $timeFilter GROUP BY time($interval) ORDER BY asc",
+              "rawQuery": false,
+              "tags": [
+                {
+                  "key": "symbol",
+                  "value": "VTI"
+                }
+              ]
+            },
+            {
+              "alias": "IVE.fills",
+              "fields": [
+                {
+                  "func": "sum",
+                  "name": "filled_amount"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "fills",
+              "query": "SELECT sum(filled_amount) FROM \"fills\" WHERE \"symbol\" = 'VTI' AND $timeFilter GROUP BY time($interval) ORDER BY asc",
+              "rawQuery": false,
+              "tags": [
+                {
+                  "key": "symbol",
+                  "value": "VTI"
+                }
+              ]
+            },
+            {
+              "alias": "IWS.fills",
+              "fields": [
+                {
+                  "func": "sum",
+                  "name": "filled_amount"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "fills",
+              "query": "SELECT sum(filled_amount) FROM \"fills\" WHERE \"symbol\" = 'VTI' AND $timeFilter GROUP BY time($interval) ORDER BY asc",
+              "rawQuery": false,
+              "tags": [
+                {
+                  "key": "symbol",
+                  "value": "VTI"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Fills Amounts",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "title": "New row"
+    }
+  ],
+  "nav": [
+    {
+      "collapse": false,
+      "enable": true,
+      "notice": false,
+      "now": true,
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "type": "timepicker"
+    }
+  ],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": "5s",
+  "schemaVersion": 6,
+  "version": 22,
+  "links": []
+}

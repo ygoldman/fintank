@@ -1,0 +1,5 @@
+site 'http://community.opscode.com/api/v1'
+
+cookbook 'chef_handler'
+cookbook 'npm', git: 'https://github.com/balbeko/chef-npm'
+cookbook 'influxdb', path: './'

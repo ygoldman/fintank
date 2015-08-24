@@ -1,0 +1,5 @@
+streamparse==1.1.0
+kafka-python==0.9.3
+simplejson==3.6.3
+influxdb
+retrying>=1.3.3

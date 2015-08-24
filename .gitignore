@@ -1,0 +1,12 @@
+*.log
+*.pyc
+list
+lib
+kafka-manager
+grafana
+.vagrant
+_build
+_resources
+bin
+*.deb
+*.zip
